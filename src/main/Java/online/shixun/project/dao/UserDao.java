@@ -1,10 +1,14 @@
 package online.shixun.project.dao;
 
+import online.shixun.project.dto.PageData;
 import online.shixun.project.model.UserModel;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * 数据库访问类
@@ -44,6 +48,23 @@ public class UserDao {
                 .setParameter("name", name)
                 .uniqueResult();
         return user;
+    }
+    /**
+     * 获取用户分页数据
+     */
+    @SuppressWarnings("unchecked")
+    public PageData<UserModel> getUserPageData(int pageNo, int pageSize) {
+        Query query = getCurrentSession().createQuery("from UserModel");
+        int totalCount = query.list().size();
+        query.setFirstResult((pageNo - 1) * pageSize); // 从哪里开始取
+        query.setMaxResults(pageSize); // 取几条数据
+        List<UserModel> result = query.list();
+        PageData<UserModel> page = new PageData<UserModel>();
+        page.setPageNo(pageNo);
+        page.setPageSize(pageSize);
+        page.setResult(result);
+        page.setTotalCount(totalCount);
+        return page;
     }
 
 }

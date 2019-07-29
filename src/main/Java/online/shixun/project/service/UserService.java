@@ -1,6 +1,7 @@
 package online.shixun.project.service;
 
 import online.shixun.project.dao.UserDao;
+import online.shixun.project.dto.PageData;
 import online.shixun.project.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,16 @@ public class UserService {
         }
         // 登录失败
         return false;
+    }
+    /**
+     * 查询所有用户形成的分页数据
+     * @param pageNo 当前是第几页
+     * @param pageSize 每页显示多少人
+     * @return
+     */
+    public PageData<UserModel> getUserPageData(int pageNo, int pageSize) {
+        PageData<UserModel> userPage = userDao.getUserPageData(pageNo, pageSize);
+        return userPage;
     }
 }
 
