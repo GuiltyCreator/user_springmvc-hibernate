@@ -31,21 +31,26 @@
     <lombokVersion>1.16.10</lombokVersion>
   </properties>
 
+
   <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
-    </dependency>
+
 
     <!-- 单元测试 -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
+      <version>4.12</version>
+      <!-- 去掉scope作用域，使用默认的compile，编译、测试、运行都有效的作用域 -->
+      <!--<scope>test</scope>-->
     </dependency>
+
+   <!-- <dependency>
+    <groupId>junit</groupId>
+    <artifactId>junit</artifactId>
+    <version>3.8.1</version>
+    <scope>test</scope>
+  </dependency>
+-->
 
     <!-- spring -->
     <dependency>
@@ -70,6 +75,12 @@
       <artifactId>spring-orm</artifactId>
       <version>${springVersion}</version>
     </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>${springVersion}</version>
+    </dependency>
+
 
     <!-- spring web + spring MVC -->
     <dependency>
@@ -182,6 +193,21 @@
       <version>${lombokVersion}</version>
       <scope>provided</scope>
     </dependency>
+
+    <!--
+          <dependency>
+              <groupId>junit</groupId>
+              <artifactId>junit</artifactId>
+              <version>4.11</version>
+              <scope>compile</scope>
+          </dependency>
+        <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>4.11</version>
+          <scope>compile</scope>
+        </dependency>
+    -->
 
 
   </dependencies>

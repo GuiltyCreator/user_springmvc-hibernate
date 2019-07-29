@@ -54,10 +54,14 @@ public class UserDao {
      */
     @SuppressWarnings("unchecked")
     public PageData<UserModel> getUserPageData(int pageNo, int pageSize) {
-        Query query = getCurrentSession().createQuery("from UserModel");
-        int totalCount = query.list().size();
+        Query query = getCurrentSession().createQuery("from UserModel");//还未查询，只是维持住状态
+        int totalCount = query.list().size();//调用query.list()后，开始执行,获得总数
+
+        //设置查询条件
         query.setFirstResult((pageNo - 1) * pageSize); // 从哪里开始取
         query.setMaxResults(pageSize); // 取几条数据
+
+        //再次查询，这次要结果集
         List<UserModel> result = query.list();
         PageData<UserModel> page = new PageData<UserModel>();
         page.setPageNo(pageNo);
