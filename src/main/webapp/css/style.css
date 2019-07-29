@@ -1,0 +1,302 @@
+@font-face {
+	font-family: my-font;
+	src: url(../fonts/华文行楷.ttf);
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+a {
+	color: #000;
+	text-decoration: none;
+}
+
+.clr {
+	clear: both;
+}
+
+header {
+	width: 100%;
+	height: 80px;
+	line-height: 80px;
+	color: #fff;
+	display: flex;
+	background: url(../images/bg.png) left bottom repeat;
+}
+
+header h2 {
+	background: url(../images/logo.png) no-repeat;
+	background-size: 80px;
+	margin: 0px 10px;
+	padding-left: 100px;
+	font-size: 35px;
+	font-weight: normal;
+	font-family: my-font;
+	text-shadow: 2px 2px 2px #ddd;
+	flex-grow: 1;
+}
+
+header nav {
+	float: right;
+	list-style: none;
+	margin: 0px 20px;
+}
+
+header nav a {
+	color: #fff;
+	margin-left: 20px;
+}
+
+.content {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+}
+
+.content aside.left {
+	width: 15%;
+	background: #ededed;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+}
+
+.content aside.left .menu {
+	flex-grow: 1;
+}
+
+.content aside.left a.menu-item {
+	width: 100%;
+	line-height: 40px;
+	display: inline-block;
+	border-bottom: 1px solid #ddd;
+	margin: 0px;
+}
+
+.content aside.left a.menu-item:hover {
+	background: #aaa;
+	color: #fff;
+}
+
+.content aside.left a.menu-item.active {
+	background: #bbb;
+}
+
+.content aside.left .head-avatar {
+	width: 100%;
+	bottom: 0px;
+	min-height: 150px;
+	max-height: 150px;
+}
+
+.content aside.left .head-avatar img {
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	margin: auto;
+}
+
+.content aside.left .head-avatar img:hover {
+	transition: transform 2s;
+	transform: rotate(360deg);
+}
+
+.content .left .head-avatar h5 {
+	text-align: center;
+	line-height: 2;
+	color: #454545;
+}
+
+.content .right {
+	width: 85%;
+	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
+}
+
+.content .right h2 {
+	line-height: 80px;
+	margin: 0px;
+	font-size: 18px;
+}
+
+.content .main-panel {
+	flex-grow: 1;
+}
+
+.content .main-panel section {
+	padding: 15px 15px 0 15px;
+}
+
+.toolbar {
+	text-align: left;
+}
+
+.toolbar input {
+	margin-right: 10px;
+	height: 20px;
+}
+
+.toolbar button {
+	width: 80px;
+	height: 25px;
+}
+
+.form {
+	padding: 0 20px;
+	display: flex;
+	flex-direction: column;
+}
+
+.form-title {
+	margin: 15px;
+}
+
+.form .form-input {
+	display: flex;
+	flex-direction: row;
+}
+
+.form .form-left {
+	width: 50%;
+}
+
+.form .upload-avatar {
+	margin-top: 20px;
+	text-align: left;
+}
+
+.form .upload-avatar img {
+	border: 1px solid #eee;
+	border-radius: 10px;
+	width: 200px;
+	height: 200px;
+}
+
+.form .upload-avatar label.select-avatar-label {
+	background: #bbb;
+	border-radius: 5px;
+	display: inline-block;
+	padding: 5px;
+	width: 200px;
+	text-align: center;
+	cursor: pointer;
+}
+
+#avatarImgFileInput {
+	display: none;
+}
+
+.form-title {
+	text-align: center;
+}
+
+.form-control {
+	width: 100%;
+	text-align: center;
+	padding-top: 20px;
+}
+
+.form-control button {
+	border: none;
+	color: white;
+	padding: 8px 25px;
+	margin: 5px;
+	text-align: center;
+	font-size: 14px;
+}
+
+.form-control .button-green {
+	background-color: #4CAF50;
+}
+
+.form-control .button-blue {
+	background-color: #008CBA;
+}
+
+.form-control .button-bray {
+	background-color: #e7e7e7;
+}
+
+.form .input-group {
+	margin-top: 25px;
+}
+
+.form .input-group .input-label {
+	text-align: right;
+}
+
+.form .input-group .input {
+	width: 70%;
+	height: 30px;
+	font-size: 14px;
+}
+
+.form .input-group .radio-label {
+	float: left;
+}
+
+.form .input-group  .radio-group {
+	float: left;
+	text-align: left;
+}
+
+.form .input-group  .radio-group label {
+	margin-right: 20px;
+}
+
+.form .input-group .select {
+	width: 70%;
+	height: 30px;
+	margin-top: 25px;
+}
+
+.form .input-group .multiple-select {
+	width: 70%;
+	height: 80px;
+	padding: 0 10px;
+	font-size: 14px;
+}
+
+.table {
+	width: 100%;
+	margin: auto;
+	border: solid 1px #DDDDDD;
+	border-spacing: 0;
+	border-collapse: collapse;
+}
+
+.table tr {
+	width: 100%;
+	line-height: 35px;
+}
+
+.table tr:hover {
+	background: #f3f3f3;
+}
+
+.table thead {
+	background: #eee;
+}
+
+.table tr td {
+	border: 1px solid #ddd;
+	line-height: 35px;
+}
+
+.table  tr td input {
+	margin: 10px;
+	float: left;
+}
+
+footer {
+	line-height: 35px;
+	text-align: center;
+}
