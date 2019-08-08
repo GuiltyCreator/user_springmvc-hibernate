@@ -15,7 +15,7 @@ import java.util.Date;
 @ContextConfiguration({ "classpath*:applicationContext.xml" })
 public class UserTest {
 
-    @Autowired
+   /* @Autowired
     private UserService userService;
 
     @Test
@@ -27,8 +27,8 @@ public class UserTest {
         user.setBirthday(new Date());
         user.setProfession("学生");
         user.setEmail("test@innovaee.com");
-        Long id = userService.saveUser(user);
-        System.out.println("新增用户的id为:" + id);
+        //Long id = userService.saveUser(user);
+        //System.out.println("新增用户的id为:" + id);
     }
 
     @Test
@@ -36,14 +36,14 @@ public class UserTest {
         UserModel user = new UserModel();
         user.setName("innovaee");
         user.setPassword("abcd");
-        boolean result = userService.login(user);
-        System.out.println("测试登录结果:" + result);
+        //boolean result = userService.login(user);
+        //System.out.println("测试登录结果:" + result);
     }
 
     @Test
     public void testGetUserPageData() {
         PageData<UserModel> userPage = userService.getUserPageData(1, 5);
         System.out.println("获取该分页用户为：" + userPage.getResult().size());
-    }
+    }*/
 
 }

@@ -1,22 +1,44 @@
 package online.shixun.project.model;
 
+import online.shixun.project.util.DateUtils;
+import org.hibernate.annotations.Fetch;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Arrays;
-import java.util.Date;
+import java.io.Serializable;
+import java.util.*;
 
 /**
  * 用户实体类
  */
 @Entity
 @Table(name = "t_user")
-public class UserModel {
+public class UserModel implements UserDetails {
 
     // 实体主键（自增长）
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id = 0L;
+
+    @Column(nullable = true)
+    private boolean enabled = true;
+
+    @Column(nullable = true)
+    private boolean accountNonExpired = true;
+
+    @Column(nullable = true)
+    private boolean accountNonLocked = true;
+
+    @Column(nullable = true)
+    private boolean credentialsNonExpired = true;
+
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "user")
+    private Set<UserRole> userRole = new HashSet<>();
+
+    @Column(name = "creatTime",nullable = true,columnDefinition="datetime")
+    private String  creatTime = DateUtils.timeToString(new Date());
 
     // 性别(枚举值)
     public enum Gender {
@@ -24,7 +46,7 @@ public class UserModel {
     }
 
     // 用户名称（不可以为空）
-    @Column(length = 100, nullable = false)
+    @Column(length = 100, unique = true,nullable = false)
     private String name;
 
     // 用户性别（不可以为空） 枚举类型
@@ -45,27 +67,44 @@ public class UserModel {
     private String email;
 
     // 生日
-    @Column
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date birthday;
+    @Column(name = "birthday",nullable = true,columnDefinition="date")
+    private String  birthday=DateUtils.timeToString(new Date());
 
     // 职业（一个用户只能从事一个职业）
-    @Column
-    private String profession;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "profession")
+    private ProfessionModel profession;
 
     // 爱好（一个用户可以拥有多个爱好）
-    private String[] hobby;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="t_USER_HOBBY",                       //指定第三张表
+            joinColumns={@JoinColumn(name="id")},             //本表与中间表的外键对应
+            inverseJoinColumns={@JoinColumn(name="HOBBY_ID")})
+    private Set<HobbyModel> hobby;
 
-    /**
-     * hobby 转换为,分隔的字符串
-     * @return 字符串
-     */
-    public String getHobbyString() {
-        if (hobby != null && hobby.length > 0) {
-            String hobbyStr = Arrays.toString(hobby);
-            return hobbyStr.substring(1, hobbyStr.length() - 1);
-        }
-        return "";
+    @Column
+    private String userAvatarImage;
+
+    // 权限
+    @Transient
+    private GrantedAuthority[] grantedAuthority;
+
+
+
+    public String getUserAvatarImage() {
+        return userAvatarImage;
+    }
+
+    public void setUserAvatarImage(String userAvatarImage) {
+        this.userAvatarImage = userAvatarImage;
+    }
+
+    public String getCreatTime() {
+        return creatTime;
+    }
+
+    public void setCreatTime(String creatTime) {
+        this.creatTime = creatTime;
     }
 
     public Long getId() {
@@ -92,8 +131,22 @@ public class UserModel {
         this.gender = gender;
     }
 
+    public void setGrantedAuthority(GrantedAuthority[] grantedAuthority) {
+        this.grantedAuthority = grantedAuthority;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Arrays.asList(grantedAuthority);
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return name;
     }
 
     public void setPassword(String password) {
@@ -116,27 +169,67 @@ public class UserModel {
         this.email = email;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
-    public String getProfession() {
+    public ProfessionModel getProfession() {
         return profession;
     }
 
-    public void setProfession(String profession) {
+    public void setProfession(ProfessionModel profession) {
         this.profession = profession;
     }
 
-    public String[] getHobby() {
+    public Set<HobbyModel> getHobby() {
         return hobby;
     }
 
-    public void setHobby(String[] hobby) {
+    public void setHobby(Set<HobbyModel> hobby) {
         this.hobby = hobby;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public boolean isAccountNonExpired() {
+        return accountNonExpired;
+    }
+
+    public void setAccountNonExpired(boolean accountNonExpired) {
+        this.accountNonExpired = accountNonExpired;
+    }
+
+    public boolean isAccountNonLocked() {
+        return accountNonLocked;
+    }
+
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+    }
+
+    public boolean isCredentialsNonExpired() {
+        return credentialsNonExpired;
+    }
+
+    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+        this.credentialsNonExpired = credentialsNonExpired;
+    }
+
+    public Set<UserRole> getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(Set<UserRole> userRole) {
+        this.userRole = userRole;
     }
 }
